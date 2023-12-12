@@ -6,6 +6,7 @@ import classes from './loginPage.module.css';
 import Title from '../../components/Title/Title';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+
 export default function LoginPage() {
   const {
     handleSubmit,
@@ -22,7 +23,7 @@ export default function LoginPage() {
     if (!user) return;
 
     returnUrl ? navigate(returnUrl) : navigate('/');
-  }, [user]);
+  }, [user, navigate, returnUrl]); // Include user, navigate, and returnUrl in the dependency array
 
   const submit = async ({ email, password }) => {
     await login(email, password);

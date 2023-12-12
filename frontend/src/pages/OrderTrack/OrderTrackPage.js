@@ -13,14 +13,16 @@ export default function OrderTrackPage() {
   const [order, setOrder] = useState();
 
   useEffect(() => {
-    orderId &&
-      trackOrderById(orderId).then(order => {
-        setOrder(order);
+    if (orderId) {
+      trackOrderById(orderId).then(orderData => {
+        setOrder(orderData);
       });
-  }, []);
+    }
+  }, [orderId]); // Include orderId in the dependency array
 
-  if (!orderId)
+  if (!orderId) {
     return <NotFound message="Order Not Found" linkText="Go To Home Page" />;
+  }
 
   return (
     order && (
@@ -65,6 +67,7 @@ export default function OrderTrackPage() {
             <Link to="/payment">Go To Payment</Link>
           </div>
         )}
+      
       </div>
     )
   );

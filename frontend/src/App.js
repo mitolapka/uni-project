@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     setLoadingInterceptor({ showLoading, hideLoading });
-  }, []);
+  }, [showLoading, hideLoading]); // Include showLoading and hideLoading in the dependency array
 
   return (
     <>

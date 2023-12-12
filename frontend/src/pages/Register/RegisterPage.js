@@ -4,8 +4,8 @@ import Input from '../../components/Input/Input';
 import Title from '../../components/Title/Title';
 import classes from './registerPage.module.css';
 import Button from '../../components/Button/Button';
-import { Link } from 'react-router-dom';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom'; // Remove duplicate import
 import { useAuth } from '../../hooks/useAuth';
 
 export default function RegisterPage() {
@@ -18,7 +18,7 @@ export default function RegisterPage() {
   useEffect(() => {
     if (!user) return;
     returnUrl ? navigate(returnUrl) : navigate('/');
-  }, [user]);
+  }, [user, navigate, returnUrl]); // Include navigate and returnUrl in the dependency array
 
   const {
     handleSubmit,
@@ -30,7 +30,6 @@ export default function RegisterPage() {
   const submit = async data => {
     await auth.register(data);
   };
-
   return (
     <div className={classes.container}>
       <div className={classes.details}>

@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:5001'],
+    origin: ['http://localhost:3001'],
   })
 );
 
@@ -35,7 +35,7 @@ app.get('*', (req, res) => {
   res.sendFile(indexFilePath);
 });
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log('listening on port ' + PORT);
 });

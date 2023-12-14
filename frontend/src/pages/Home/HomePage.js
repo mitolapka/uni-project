@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import Search from '../../components/Search/Search';
 import Tags from '../../components/Tags/Tags';
@@ -24,30 +24,30 @@ export default function HomePage() {
   const { foods, tags, loading } = state;
   const { searchTerm, tag } = useParams();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const tags = await getAllTags();
-        dispatch({ type: 'TAGS_LOADED', payload: tags });
-
-        const foods = await loadFoods();
-        dispatch({ type: 'FOODS_LOADED', payload: foods });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [searchTerm, tag]);
-
-  const loadFoods = async () => {
+  const loadFoods = useCallback(async () => {
     try {
       return tag ? await getAllByTag(tag) : searchTerm ? await search(searchTerm) : await getAll();
     } catch (error) {
       console.error('Error loading foods:', error);
       return [];
     }
-  };
+  }, [searchTerm, tag]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedTags = await getAllTags();
+        dispatch({ type: 'TAGS_LOADED', payload: fetchedTags });
+
+        const fetchedFoods = await loadFoods();
+        dispatch({ type: 'FOODS_LOADED', payload: fetchedFoods });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [searchTerm, tag, loadFoods]);
 
   return (
     <>

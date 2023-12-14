@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import classes from './map.module.css';
 import 'leaflet/dist/leaflet.css';
 import {
@@ -12,6 +12,8 @@ import { toast } from 'react-toastify';
 import * as L from 'leaflet';
 
 export default function Map({ readonly, location, onChange }) {
+  const memoizedOnChange = useCallback(onChange, [onChange]);
+
   return (
     <div className={classes.container}>
       <MapContainer
@@ -30,7 +32,7 @@ export default function Map({ readonly, location, onChange }) {
         <FindButtonAndMarker
           readonly={readonly}
           location={location}
-          onChange={onChange}
+          onChange={memoizedOnChange}
         />
       </MapContainer>
     </div>
@@ -39,14 +41,6 @@ export default function Map({ readonly, location, onChange }) {
 
 function FindButtonAndMarker({ readonly, location, onChange }) {
   const [position, setPosition] = useState(location);
-
-  useEffect(() => {
-    if (readonly) {
-      map.setView(position, 13);
-      return;
-    }
-    if (position) onChange(position);
-  }, [position]);
 
   const map = useMapEvents({
     click(e) {
@@ -60,6 +54,14 @@ function FindButtonAndMarker({ readonly, location, onChange }) {
       toast.error(e.message);
     },
   });
+
+  useEffect(() => {
+    if (readonly) {
+      map.setView(position, 13);
+      return;
+    }
+    if (position) onChange(position);
+  }, [position, readonly, onChange, map]);
 
   const markerIcon = new L.Icon({
     iconUrl: '/marker-icon-2x.png',

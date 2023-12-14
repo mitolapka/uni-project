@@ -9,17 +9,17 @@ import Price from '../../components/Price/Price';
 import { toast } from 'react-toastify';
 
 export default function FoodsAdminPage() {
-  const [foods, setFoods] = useState();
+  const [foods, setFoods] = useState([]);
   const { searchTerm } = useParams();
 
   useEffect(() => {
+    const loadFoods = async () => {
+      const fetchedFoods = searchTerm ? await search(searchTerm) : await getAll();
+      setFoods(fetchedFoods);
+    };
+
     loadFoods();
   }, [searchTerm]);
-
-  const loadFoods = async () => {
-    const foods = searchTerm ? await search(searchTerm) : await getAll();
-    setFoods(foods);
-  };
 
   const FoodsNotFound = () => {
     if (foods && foods.length > 0) return;

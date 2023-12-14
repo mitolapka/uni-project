@@ -17,10 +17,7 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.json());
 app.use(
-  cors({
-    credentials: true,
-    origin: ['http://localhost:3001'],
-  })
+  cors()
 );
 
 app.use('/api/foods', foodRouter);
@@ -35,7 +32,7 @@ app.get('*', (req, res) => {
   res.sendFile(indexFilePath);
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('listening on port ' + PORT);
 });

@@ -45,7 +45,6 @@
     ]
   },
   "devDependencies": {
-    "@types/json-schema": "^7.0.15",
-    "@types/": "react-navigation/native"
+    "@types/json-schema": "^7.0.15"
   }
 }

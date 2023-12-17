@@ -35,7 +35,10 @@ export default function FoodPage() {
 
           <div className={classes.details}>
             <div className={classes.header}>
-              <span className={classes.name}>{food.name}</span>
+              <span className={classes.title}>{food.title}</span>
+
+              <span className={classes.title}>{food.authorName}</span> 
+              
               <span
                 className={`${classes.favorite} ${
                   food.favorite ? '' : classes.not
@@ -57,7 +60,7 @@ export default function FoodPage() {
             <div className={classes.tags}>
               {food.tags && (
                 <Tags
-                  tags={food.tags.map(tag => ({ name: tag }))}
+                  tags={food.tags.map(tag => ({ title: tag }))}
                   forFoodPage={true}
                 />
               )}

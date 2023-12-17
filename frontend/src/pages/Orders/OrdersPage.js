@@ -75,7 +75,7 @@ export default function OrdersPage() {
             <div className={classes.items}>
               {order.items.map(item => (
                 <Link key={item.food.id} to={`/food/${item.food.id}`}>
-                  <img src={item.food.imageUrl} alt={item.food.name} />
+                  <img src={item.food.imageUrl} alt={item.food.title} />
                 </Link>
               ))}
             </div>

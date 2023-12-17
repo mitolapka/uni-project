@@ -16,10 +16,10 @@ export default function OrderItemsList({ order }) {
           <tr key={item.food.id}>
             <td>
               <Link to={`/food/${item.food.id}`}>
-              <img src={item.food.imageUrl} alt={item.food.name} />
+              <img src={item.food.imageUrl} alt={item.food.title} />
               </Link>
             </td>
-            <td>{item.food.name}</td>
+            <td>{item.food.title}</td>
             <td>
               <Price price={item.food.price} />
             </td>

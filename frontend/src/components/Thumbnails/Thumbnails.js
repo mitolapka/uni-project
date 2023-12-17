@@ -12,11 +12,11 @@ export default function Thumbnails({ foods }) {
             <img
               className={classes.image}
               src={`${food.imageUrl}`}
-              alt={food.name}
+              alt={food.title}
             />
 
             <div className={classes.content}>
-              <div className={classes.name}>{food.name}</div>
+              <div className={classes.name}>{food.title}</div>
               <span
                 className={`${classes.favorite} ${
                   food.favorite ? '' : classes.not
